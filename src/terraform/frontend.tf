@@ -16,6 +16,8 @@ resource "google_storage_bucket" "frontend" {
     response_header = ["Authorization", "Content-Type"]
     max_age_seconds = 3600
   }
+
+  depends_on = [google_project_iam_member.terraform_user]
 }
 
 resource "google_storage_bucket_iam_binding" "frontend" {

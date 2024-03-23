@@ -27,3 +27,9 @@ resource "google_project_iam_binding" "project_admins" {
 
   members = [for email in var.project_admins : "user:${email}"]
 }
+
+resource "google_project_iam_member" "terraform_user" {
+  project = google_project.main.project_id
+  role    = "roles/owner"
+  member  = "member:${data.google_client_config.current.access_token.issuer}"
+}
