@@ -16,7 +16,6 @@ env:
 jobs:
 
   terraform-plan:
-    needs: [build]
     runs-on: ubuntu-latest
 
     environment:
