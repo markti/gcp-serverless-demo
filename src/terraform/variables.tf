@@ -10,3 +10,6 @@ variable "primary_region" {
 variable "gcp_organization" {
   type = string
 }
+variable "project_admins" {
+  type = list(string)
+}

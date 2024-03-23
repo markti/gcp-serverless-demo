@@ -21,8 +21,9 @@ resource "random_string" "project_id" {
   upper   = false
 }
 
-resource "google_project_iam_member" "admins" {
+resource "google_project_iam_binding" "project_admins" {
   project = google_project.main.project_id
-  role    = "roles/viewer"
-  member  = "user:markti@cloud-stack.io"
+  role    = "roles/owner"
+
+  members = [for email in var.project_admins : "user:${email}"]
 }
