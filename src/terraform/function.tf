@@ -2,7 +2,7 @@
 resource "google_storage_bucket" "backend" {
 
   project  = google_project.main.project_id
-  name     = "${var.application_name}-${var.environment_name}"
+  name     = "${var.application_name}-${var.environment_name}-backend"
   location = "US"
 }
 
