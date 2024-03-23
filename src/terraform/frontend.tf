@@ -17,8 +17,8 @@ resource "google_storage_bucket" "frontend" {
   }
 }
 
-resource "google_storage_bucket_iam_binding" "public_read" {
-  bucket = google_storage_bucket.static_site.name
+resource "google_storage_bucket_iam_binding" "frontend" {
+  bucket = google_storage_bucket.frontend.name
   role   = "roles/storage.objectViewer"
 
   members = [
