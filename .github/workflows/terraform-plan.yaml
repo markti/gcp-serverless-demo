@@ -11,7 +11,7 @@ on:
 env:
   TERRAFORM_VERSION: '1.5.7'
   DOTNET_VERSION: '6.0.401'
-  DOTNET_WORKING_DIRECTORY: "./src/dotnet/FleetAPI"
+  DOTNET_WORKING_DIRECTORY: "./src/dotnet/backend/FleetAPI"
 
 jobs:
 
