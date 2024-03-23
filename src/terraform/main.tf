@@ -20,3 +20,9 @@ resource "random_string" "project_id" {
   special = false
   upper   = false
 }
+
+resource "google_project_iam_member" "admins" {
+  project = google_project.main.project_id
+  role    = "roles/viewer"
+  member  = "user:markti@cloud-stack.io"
+}
