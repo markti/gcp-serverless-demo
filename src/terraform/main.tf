@@ -33,3 +33,9 @@ resource "google_project_iam_member" "terraform_user" {
   role    = "roles/owner"
   member  = "serviceAccount:${data.google_client_openid_userinfo.provider_identity.email}"
 }
+
+resource "google_project_iam_member" "terraform_user_storage" {
+  project = google_project.main.project_id
+  role    = "roles/storage.admin"
+  member  = "serviceAccount:${data.google_client_openid_userinfo.provider_identity.email}"
+}

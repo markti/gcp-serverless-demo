@@ -17,7 +17,7 @@ resource "google_storage_bucket" "frontend" {
     max_age_seconds = 3600
   }
 
-  depends_on = [google_project_iam_member.terraform_user]
+  depends_on = [google_project_iam_member.terraform_user_storage]
 }
 
 resource "google_storage_bucket_iam_binding" "frontend" {
