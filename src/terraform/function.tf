@@ -12,6 +12,9 @@ resource "google_storage_bucket_object" "deployment" {
 */
 
 resource "google_cloudfunctions_function" "main" {
+
+  project = google_project.main.project_id
+
   name        = "func-${var.application_name}-${var.environment_name}"
   description = "My function"
   runtime     = "dotnet6"
