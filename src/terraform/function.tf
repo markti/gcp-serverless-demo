@@ -1,4 +1,4 @@
-/*
+
 resource "google_storage_bucket" "backend" {
   name     = "${var.application_name}-${var.environment_name}"
   location = "US"
@@ -20,6 +20,8 @@ resource "google_cloudfunctions_function" "main" {
   source_archive_object = google_storage_bucket_object.archive.name
   trigger_http          = true
   entry_point           = "helloGET"
+
+  depends_on = [google_project_service.functions]
 }
 
 # IAM entry for all users to invoke the function
@@ -31,4 +33,3 @@ resource "google_cloudfunctions_function_iam_member" "invoker" {
   role   = "roles/cloudfunctions.invoker"
   member = "allUsers"
 }
-*/
