@@ -31,5 +31,5 @@ resource "google_project_iam_binding" "project_admins" {
 resource "google_project_iam_member" "terraform_user" {
   project = google_project.main.project_id
   role    = "roles/owner"
-  member  = "serviceAccount:${data.google_client_config.current.client_email}"
+  member  = "member:${data.google_client_openid_userinfo.provider_identity.email}"
 }
