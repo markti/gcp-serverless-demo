@@ -1,4 +1,4 @@
-
+/*
 resource "google_storage_bucket" "frontend" {
 
   project  = google_project.main.project_id
@@ -28,3 +28,4 @@ resource "google_storage_bucket_iam_binding" "frontend" {
     "allUsers"
   ]
 }
+*/
