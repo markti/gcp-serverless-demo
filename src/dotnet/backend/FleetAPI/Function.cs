@@ -6,6 +6,11 @@ namespace FleetAPI;
 
 public class Function : IHttpFunction
 {
+    private static readonly string[] Summaries = new[]
+    {
+        "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
+    };
+
     /// <summary>
     /// Logic for your function goes here.
     /// </summary>
@@ -13,6 +18,23 @@ public class Function : IHttpFunction
     /// <returns>A task representing the asynchronous operation.</returns>
     public async Task HandleAsync(HttpContext context)
     {
-        await context.Response.WriteAsync("Hello, Functions Framework.");
+        var forecasts = Enumerable.Range(1, 5).Select(index => new WeatherForecast
+        {
+            Date = DateTime.Now.AddDays(index),
+            TemperatureC = Random.Shared.Next(-20, 55),
+            Summary = Summaries[Random.Shared.Next(Summaries.Length)]
+        })
+        .ToArray();
+
+        var responseBody = JsonSerializer.Serialize(forecasts);
+
+        context.Response.Headers["Content-Type"] = "application/json";
+        context.Response.Headers["Access-Control-Allow-Origin"] = "*";
+
+        // Set status code
+        context.Response.StatusCode = 200;
+
+        // Write the response body
+        await context.Response.WriteAsync(responseBody);
     }
 }
