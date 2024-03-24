@@ -138,7 +138,7 @@ jobs:
       - name: Create Secret File for Backend
         env:
           GOOGLE_BACKEND_CREDENTIALS: ${{ secrets.GOOGLE_BACKEND_CREDENTIALS }}
-        working-directory: ${{ env.DOTNET_WORKING_DIRECTORY }}/upload-staging
+        working-directory: ${{ env.DOTNET_WORKING_DIRECTORY }}
         run: |
           # Create a local file with the secret value
           echo -n "$GOOGLE_BACKEND_CREDENTIALS" > gcp-backend.json
@@ -146,26 +146,14 @@ jobs:
       - name: Create Secret File for Terraform
         env:
           GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
-        working-directory: ${{ env.DOTNET_WORKING_DIRECTORY }}/upload-staging
+        working-directory: ${{ env.DOTNET_WORKING_DIRECTORY }}
         run: |
           # Create a local file with the secret value
           echo -n "$GOOGLE_APPLICATION_CREDENTIALS" > gcp-terraform.json
-
-      - name: Create Boto File
-        working-directory: ${{ env.DOTNET_WORKING_DIRECTORY }}/upload-staging
-        run: |
-          echo "[Credentials]
-          gs_service_key_file = gcp-terraform.json" > .boto
-      
-      - name: Display structure of downloaded files
-        working-directory: ${{ env.DOTNET_WORKING_DIRECTORY }}/upload-staging
-        run: |
-          ls -R
-          cat ./.boto
 
       - name: Upload to Google Cloud Storage Bucket
         env:
           GOOGLE_APPLICATION_CREDENTIALS: gcp-terraform.json
         working-directory: ${{ env.DOTNET_WORKING_DIRECTORY }}/upload-staging
         run: |
-          gsutil -m cp -r . gs://${{ needs.terraform.outputs.frontend_bucket_name }}
+          gsutil -m cp -r -o Credentials:gs_service_key_file=../gcp-terraform.json . gs://${{ needs.terraform.outputs.frontend_bucket_name }}
