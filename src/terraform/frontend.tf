@@ -1,9 +1,10 @@
 
 resource "google_storage_bucket" "frontend" {
 
-  project  = google_project.main.project_id
-  name     = "${var.application_name}-${var.environment_name}-frontend-${random_string.project_id.result}"
-  location = "US"
+  project                     = google_project.main.project_id
+  name                        = "${var.application_name}-${var.environment_name}-frontend-${random_string.project_id.result}"
+  location                    = "US"
+  uniform_bucket_level_access = true
 
   website {
     main_page_suffix = "index.html"
