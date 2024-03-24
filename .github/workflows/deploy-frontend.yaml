@@ -156,7 +156,4 @@ jobs:
           GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
         working-directory: ${{ env.DOTNET_WORKING_DIRECTORY }}/upload-staging
         run: |
-          # Authenticate with Google Cloud
-          gcloud auth activate-service-account --key-file=$GOOGLE_APPLICATION_CREDENTIALS
-          # Upload the contents of the folder to the GCS bucket
           gsutil -m cp -r . gs://${{ needs.terraform.outputs.frontend_bucket_name }}
