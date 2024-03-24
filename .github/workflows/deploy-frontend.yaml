@@ -126,7 +126,7 @@ jobs:
       - name: Create Secret File for Backend
         env:
           GOOGLE_BACKEND_CREDENTIALS: ${{ secrets.GOOGLE_BACKEND_CREDENTIALS }}
-        working-directory: ${{ vars.TERRAFORM_WORKING_DIRECTORY }}
+        working-directory: ${{ env.DOTNET_WORKING_DIRECTORY }}/upload-staging
         run: |
           # Create a local file with the secret value
           echo -n "$GOOGLE_BACKEND_CREDENTIALS" > gcp-backend.json
@@ -134,7 +134,7 @@ jobs:
       - name: Create Secret File for Terraform
         env:
           GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
-        working-directory: ${{ vars.TERRAFORM_WORKING_DIRECTORY }}
+        working-directory: ${{ env.DOTNET_WORKING_DIRECTORY }}/upload-staging
         run: |
           # Create a local file with the secret value
           echo -n "$GOOGLE_APPLICATION_CREDENTIALS" > gcp-terraform.json
