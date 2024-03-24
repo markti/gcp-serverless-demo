@@ -7,7 +7,10 @@ resource "google_compute_backend_bucket" "frontend" {
   bucket_name = google_storage_bucket.frontend.name
   enable_cdn  = true
 
-  depends_on = [google_project_service.compute]
+  depends_on = [
+    google_project_service.compute,
+    google_project_iam_member.terraform_user_compute
+  ]
 }
 
 resource "google_compute_url_map" "frontend" {
