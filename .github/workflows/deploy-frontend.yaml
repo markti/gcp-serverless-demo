@@ -154,7 +154,14 @@ jobs:
       - name: Create Boto File
         working-directory: ${{ env.DOTNET_WORKING_DIRECTORY }}/upload-staging
         run: |
-          echo "[Credentials]\ngs_service_key_file = gcp-terraform.json" > .boto
+          echo "[Credentials]
+          gs_service_key_file = gcp-terraform.json" > .boto
+      
+      - name: Display structure of downloaded files
+        working-directory: ${{ env.DOTNET_WORKING_DIRECTORY }}/upload-staging
+        run: |
+          ls -R
+          cat ./.boto
 
       - name: Upload to Google Cloud Storage Bucket
         env:
