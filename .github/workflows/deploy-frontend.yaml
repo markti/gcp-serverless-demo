@@ -156,4 +156,4 @@ jobs:
           GOOGLE_APPLICATION_CREDENTIALS: ../gcp-terraform.json
         working-directory: ${{ env.DOTNET_WORKING_DIRECTORY }}/upload-staging
         run: |
-          gsutil -m cp -r . gs://${{ needs.terraform.outputs.frontend_bucket_name }}
+          gsutil -o Credentials:gs_service_key_file=gcp-terraform.json -m cp -r . gs://${{ needs.terraform.outputs.frontend_bucket_name }}
