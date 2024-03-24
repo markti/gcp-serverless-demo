@@ -25,6 +25,9 @@ resource "google_compute_target_http_proxy" "frontend" {
 }
 
 resource "google_compute_global_forwarding_rule" "frontend" {
+
+  project = google_project.main.project_id
+
   name       = "${var.application_name}-${var.environment_name}-frontend-${random_string.project_id.result}"
   target     = google_compute_target_http_proxy.frontend.self_link
   port_range = "80"
