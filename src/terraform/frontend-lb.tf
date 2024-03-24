@@ -6,6 +6,8 @@ resource "google_compute_backend_bucket" "frontend" {
   name        = "${var.application_name}-${var.environment_name}-frontend-${random_string.project_id.result}"
   bucket_name = google_storage_bucket.frontend.name
   enable_cdn  = true
+
+  depends_on = [google_project_service.compute]
 }
 
 resource "google_compute_url_map" "frontend" {
