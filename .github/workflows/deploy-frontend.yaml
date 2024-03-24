@@ -123,6 +123,18 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
+      - uses: actions/download-artifact@v3
+        with:
+          name: dotnet-deployment
+      
+      - name: Display structure of downloaded files
+        run: ls -R
+
+      - name: Unzip Deployment Package
+        run: |
+          mkdir -p ${{ env.DOTNET_WORKING_DIRECTORY }}/upload-staging
+          unzip ./deployment.zip -d ${{ env.DOTNET_WORKING_DIRECTORY }}/upload-staging
+
       - name: Create Secret File for Backend
         env:
           GOOGLE_BACKEND_CREDENTIALS: ${{ secrets.GOOGLE_BACKEND_CREDENTIALS }}
@@ -138,18 +150,6 @@ jobs:
         run: |
           # Create a local file with the secret value
           echo -n "$GOOGLE_APPLICATION_CREDENTIALS" > gcp-terraform.json
-
-      - uses: actions/download-artifact@v3
-        with:
-          name: dotnet-deployment
-      
-      - name: Display structure of downloaded files
-        run: ls -R
-
-      - name: Unzip Deployment Package
-        run: |
-          mkdir -p ${{ env.DOTNET_WORKING_DIRECTORY }}/upload-staging
-          unzip ./deployment.zip -d ${{ env.DOTNET_WORKING_DIRECTORY }}/upload-staging
 
       - name: Upload to Google Cloud Storage Bucket
         env:
