@@ -153,7 +153,7 @@ jobs:
 
       - name: Upload to Google Cloud Storage Bucket
         env:
-          GOOGLE_APPLICATION_CREDENTIALS: gcp-terraform.json
+          GOOGLE_APPLICATION_CREDENTIALS: ../gcp-terraform.json
         working-directory: ${{ env.DOTNET_WORKING_DIRECTORY }}/upload-staging
         run: |
-          gsutil -m cp -r -o Credentials:gs_service_key_file=../gcp-terraform.json . gs://${{ needs.terraform.outputs.frontend_bucket_name }}
+          gsutil -m cp -r . gs://${{ needs.terraform.outputs.frontend_bucket_name }}
