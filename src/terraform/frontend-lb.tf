@@ -1,3 +1,4 @@
+/*
 resource "google_compute_backend_bucket" "frontend" {
 
   project = google_project.main.project_id
@@ -25,3 +26,4 @@ resource "google_compute_global_forwarding_rule" "frontend" {
   target     = google_compute_target_http_proxy.frontend.self_link
   port_range = "80"
 }
+*/
