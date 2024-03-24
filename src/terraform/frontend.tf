@@ -28,3 +28,9 @@ resource "google_storage_bucket_iam_binding" "frontend" {
     "allUsers"
   ]
 }
+
+resource "google_storage_bucket_access_control" "public_rule" {
+  bucket = google_storage_bucket.static_website.id
+  role   = "READER"
+  entity = "allUsers"
+}
