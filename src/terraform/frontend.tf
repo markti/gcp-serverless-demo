@@ -30,7 +30,7 @@ resource "google_storage_bucket_iam_binding" "frontend" {
 }
 
 resource "google_storage_bucket_access_control" "public_rule" {
-  bucket = google_storage_bucket.static_website.id
+  bucket = google_storage_bucket.frontend.id
   role   = "READER"
   entity = "allUsers"
 }
