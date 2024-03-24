@@ -17,6 +17,9 @@ resource "google_compute_url_map" "frontend" {
 }
 
 resource "google_compute_target_http_proxy" "frontend" {
+
+  project = google_project.main.project_id
+
   name    = "${var.application_name}-${var.environment_name}-frontend-${random_string.project_id.result}"
   url_map = google_compute_url_map.frontend.self_link
 }
