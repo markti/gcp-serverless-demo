@@ -151,12 +151,12 @@ jobs:
           mkdir -p ${{ env.DOTNET_WORKING_DIRECTORY }}/upload-staging
           unzip ./deployment.zip -d ${{ env.DOTNET_WORKING_DIRECTORY }}/upload-staging
 
-      - id: deploy
-        name: Upload to S3 Bucket
+      - name: Upload to Google Cloud Storage Bucket
         env:
-          AWS_ACCESS_KEY_ID: ${{ vars.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          AWS_REGION: ${{ vars.BACKEND_REGION }}
+          GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
         working-directory: ${{ env.DOTNET_WORKING_DIRECTORY }}/upload-staging
         run: |
-          aws s3 sync . s3://${{ needs.terraform.outputs.frontend_bucket_name }}
+          # Authenticate with Google Cloud
+          gcloud auth activate-service-account --key-file=$GOOGLE_APPLICATION_CREDENTIALS
+          # Upload the contents of the folder to the GCS bucket
+          gsutil -m cp -r . gs://${{ needs.terraform.outputs.frontend_bucket_name }}

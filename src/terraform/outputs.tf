@@ -1,6 +1,9 @@
 output "project_id" {
   value = google_project.main.project_id
 }
+output "frontend_bucket_name" {
+  value = google_storage_bucket.frontend.name
+}
 /*
 output "current_user" {
   value = data.google_client_openid_userinfo.provider_identity.email
