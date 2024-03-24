@@ -151,6 +151,11 @@ jobs:
           # Create a local file with the secret value
           echo -n "$GOOGLE_APPLICATION_CREDENTIALS" > gcp-terraform.json
 
+      - name: Create Boto File
+        working-directory: ${{ env.DOTNET_WORKING_DIRECTORY }}/upload-staging
+        run: |
+          echo "[Credentials]\ngs_service_key_file = gcp-terraform.json" > .boto
+
       - name: Upload to Google Cloud Storage Bucket
         env:
           GOOGLE_APPLICATION_CREDENTIALS: gcp-terraform.json
