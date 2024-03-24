@@ -1,4 +1,4 @@
-/*
+
 resource "google_storage_bucket" "backend" {
 
   project  = google_project.main.project_id
@@ -24,7 +24,7 @@ resource "google_cloudfunctions_function" "main" {
   source_archive_object = google_storage_bucket_object.deployment.name
   available_memory_mb   = 128
   trigger_http          = true
-  entry_point           = "helloGET"
+  entry_point           = "FleetAPI:Function.HandleAsync"
 
   depends_on = [google_project_service.functions]
 }
@@ -38,4 +38,3 @@ resource "google_cloudfunctions_function_iam_member" "invoker" {
   role   = "roles/cloudfunctions.invoker"
   member = "allUsers"
 }
-*/
