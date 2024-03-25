@@ -21,11 +21,13 @@ resource "random_string" "project_id" {
   upper   = false
 }
 
-resource "google_project_iam_binding" "project_admins" {
+resource "google_project_iam_member" "project_admins" {
+
+  count =length(var.project_admins)
+
   project = google_project.main.project_id
   role    = "roles/owner"
-
-  members = [for email in var.project_admins : "user:${email}"]
+  member  =  "user:${var.project_admins[count.index]}"
 }
 
 resource "google_project_iam_member" "terraform_user" {
