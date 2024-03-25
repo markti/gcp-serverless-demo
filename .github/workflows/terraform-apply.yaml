@@ -37,17 +37,10 @@ jobs:
       run: ls -R
       working-directory: ${{ env.DOTNET_WORKING_DIRECTORY }}
 
-    - name: Publish
-      run: |
-        pwd
-        ls
-        dotnet publish -c Release -o ./publish -r linux-x64 ./FleetAPI.csproj
-      working-directory: ${{ env.DOTNET_WORKING_DIRECTORY }}
-
     - name: Generate the Deployment Package
       run: |
         zip -r ../deployment.zip .
-      working-directory: ${{ env.DOTNET_WORKING_DIRECTORY }}/publish
+      working-directory: ${{ env.DOTNET_WORKING_DIRECTORY }}
       
     - name: Display structure of downloaded files
       run: ls -R
