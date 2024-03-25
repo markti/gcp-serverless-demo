@@ -24,13 +24,15 @@ resource "google_cloudfunctions2_function" "backend" {
 
   build_config {
     runtime = "dotnet6"
-    entry_point = "FleetAPI:Function"  # Set the entry point 
+    entry_point = "FleetAPI:Function"
+
     source {
       storage_source {
         bucket = google_storage_bucket.backend.name
         object = google_storage_bucket_object.deployment.name
       }
     }
+
   }
 
   service_config {
