@@ -28,6 +28,8 @@ resource "google_project_iam_member" "project_admins" {
   project = google_project.main.project_id
   role    = "roles/owner"
   member  =  "user:${var.project_admins[count.index]}"
+
+  depends_on = [ google_project_iam_member.terraform_user ]
 }
 
 resource "google_project_iam_member" "terraform_user" {
