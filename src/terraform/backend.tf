@@ -43,7 +43,7 @@ resource "google_cloudfunctions2_function" "backend" {
 
   build_config {
     runtime = "dotnet6"
-    entry_point = "FleetAPI:Function"
+    entry_point = "FleetAPI.Function"
 
     source {
       storage_source {
