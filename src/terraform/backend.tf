@@ -15,7 +15,7 @@ resource "google_storage_bucket_object" "deployment" {
 }
 
 resource "google_cloudfunctions2_function" "backend" {
-  
+
   project  = google_project.main.project_id
 
   name = "func-${var.application_name}-${var.environment_name}-backend-${random_string.project_id.result}"
@@ -38,4 +38,6 @@ resource "google_cloudfunctions2_function" "backend" {
     available_memory    = "256M"
     timeout_seconds     = 60
   }
+
+  depends_on = [ google_project_service.run ]
 }
