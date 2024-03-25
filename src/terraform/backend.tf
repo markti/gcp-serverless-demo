@@ -15,6 +15,9 @@ resource "google_storage_bucket_object" "deployment" {
 }
 
 resource "google_cloudfunctions2_function" "backend" {
+  
+  project  = google_project.main.project_id
+
   name = "func-${var.application_name}-${var.environment_name}-backend-${random_string.project_id.result}"
   location = var.primary_region
   description = "a new function"
