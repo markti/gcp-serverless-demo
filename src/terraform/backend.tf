@@ -24,7 +24,7 @@ resource "google_cloudfunctions2_function" "backend" {
 
   build_config {
     runtime = "dotnet6"
-    entry_point = "Function:HandleAsync"  # Set the entry point 
+    entry_point = "FleetAPI:Function"  # Set the entry point 
     source {
       storage_source {
         bucket = google_storage_bucket.backend.name
