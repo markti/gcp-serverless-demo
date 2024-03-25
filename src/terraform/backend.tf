@@ -24,7 +24,7 @@ resource "google_cloudfunctions_function" "main" {
   source_archive_object = google_storage_bucket_object.deployment.name
   available_memory_mb   = 128
   trigger_http          = true
-  entry_point           = "FleetAPI:Function.HandleAsync"
+  entry_point           = "Function.HandleAsync"
 
   depends_on = [google_project_service.functions]
 }
