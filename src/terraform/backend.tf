@@ -17,9 +17,9 @@ resource "random_string" "deployment" {
     date = "${timestamp()}"
   }
 
-  length = 8
+  length  = 8
   special = false
-  upper = false
+  upper   = false
 
 }
 
@@ -28,21 +28,21 @@ resource "google_storage_bucket_object" "deployment" {
   bucket = google_storage_bucket.backend.name
   source = "deployment.zip"
 
-    lifecycle {
-      replace_triggered_by = [ random_string.deployment ]
+  lifecycle {
+    replace_triggered_by = [random_string.deployment]
   }
 }
 
 resource "google_cloudfunctions2_function" "backend" {
 
-  project  = google_project.main.project_id
+  project = google_project.main.project_id
 
-  name = "func-${var.application_name}-${var.environment_name}-backend-${random_string.project_id.result}"
-  location = var.primary_region
+  name        = "func-${var.application_name}-${var.environment_name}-backend-${random_string.project_id.result}"
+  location    = var.primary_region
   description = "a new function"
 
   build_config {
-    runtime = "dotnet6"
+    runtime     = "dotnet6"
     entry_point = "FleetAPI.Function"
 
     source {
@@ -51,14 +51,13 @@ resource "google_cloudfunctions2_function" "backend" {
         object = google_storage_bucket_object.deployment.name
       }
     }
-
   }
 
   service_config {
-    max_instance_count  = 1
-    available_memory    = "256M"
-    timeout_seconds     = 60
+    max_instance_count = 1
+    available_memory   = "256M"
+    timeout_seconds    = 60
   }
 
-  depends_on = [ google_project_service.run ]
+  depends_on = [google_project_service.run]
 }
